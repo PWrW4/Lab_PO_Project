@@ -110,14 +110,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assasin.cpp" />
+    <ClCompile Include="MagicialItem.cpp" />
+    <ClCompile Include="Worrior.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assasin.h" />
+    <ClInclude Include="MagicialItem.h" />
+    <ClInclude Include="Worrior.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
