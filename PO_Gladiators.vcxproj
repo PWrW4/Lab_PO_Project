@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assasin.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="MagicialItem.h" />
     <ClInclude Include="Worrior.h" />
     <ClInclude Include="Field.h" />
