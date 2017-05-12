@@ -6,7 +6,7 @@
 class Worrior : virtual public Hero
 {
 	Weapon * weapon;
-	virtual void worriorAttack(Hero &_enemy) = 0;
+	void worriorAttack(Hero &_enemy);
 	virtual void specialAttack(Hero &_enemy) = 0;
 public:
 

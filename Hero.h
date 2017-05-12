@@ -19,6 +19,7 @@ class Hero
 	int movePoints;
 	int attackDistance;
 	HeroType heroType;
+	int specialAttackChance=50; //0-100
 	
 public:
 	//constructors
@@ -35,6 +36,7 @@ public:
 	void setAttackDistance(int _setTo);
 	void setHeroType(HeroType _h);
 	void setSymbol(string _setTo);
+	void setSpecialAttackChance(int _setTo);
 
 	int getId() const;
 	int getHp() const;
@@ -45,6 +47,7 @@ public:
 	int getAttackDistance() const;
 	HeroType getHeroType() const;
 	string setSymbol() const;
+	int getSpecialAttackChance() const;
 
 
 	virtual void Attack(Hero &_enemy) = 0;

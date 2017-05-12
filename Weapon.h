@@ -5,7 +5,7 @@ class Weapon
 	int weaponMoveCost;
 public:
 	int getWeaponDamage() const;
-	Weapon();
+	Weapon(int _dmg, int _move);
 	~Weapon();
 };
 
