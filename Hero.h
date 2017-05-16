@@ -52,6 +52,7 @@ public:
 
 	virtual void Attack(Hero &_enemy) = 0;
 
+
 	virtual ~Hero();
 };
 

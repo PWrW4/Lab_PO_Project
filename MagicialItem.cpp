@@ -1,7 +1,7 @@
 #include "MagicialItem.h"
 
 
-int MagicialItem::getItemMagic()
+int MagicialItem::getItemMagic() const
 {
 	return magic;
 }

@@ -114,6 +114,7 @@
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="MagicialItem.cpp" />
     <ClCompile Include="Magician.cpp" />
+    <ClCompile Include="Paladin.cpp" />
     <ClCompile Include="Wizard.cpp" />
     <ClCompile Include="Worrior.cpp" />
     <ClCompile Include="Field.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Knight.h" />
     <ClInclude Include="MagicialItem.h" />
     <ClInclude Include="Magician.h" />
+    <ClInclude Include="Paladin.h" />
     <ClInclude Include="Wizard.h" />
     <ClInclude Include="Worrior.h" />
     <ClInclude Include="Field.h" />

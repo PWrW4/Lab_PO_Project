@@ -12,14 +12,14 @@ void Worrior::worriorAttack(Hero& _enemy)
 			damageToDo = _enemy.getHp() + _enemy.getMagicalResistance() - getDamage() - getWeapon()->getWeaponDamage();
 			if (damageToDo>0)
 			{
-				_enemy.setHp(damageToDo);
+				_enemy.setHp(_enemy.getHp() - damageToDo);
 			}
 			break;
 		case HeroType::Phisical:
 			damageToDo = _enemy.getHp() + _enemy.getDefence() - getDamage() - getWeapon()->getWeaponDamage();
 			if (damageToDo>0)
 			{
-				_enemy.setHp(damageToDo);
+				_enemy.setHp(_enemy.getHp() - damageToDo);
 			}
 			break;
 		default: break;

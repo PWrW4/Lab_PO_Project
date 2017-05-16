@@ -1,4 +1,5 @@
 #include "Wizard.h"
+#include "World.h"
 
 
 void Wizard::magicianAttack(Hero& _enemy)
@@ -7,26 +8,22 @@ void Wizard::magicianAttack(Hero& _enemy)
 	switch (getHeroType())
 	{
 	case HeroType::Magical:
-		damageToDo = _enemy.getHp() + _enemy.getMagicalResistance() - getMagicalItem()->getItemMagic();
+		damageToDo = _enemy.getHp() + _enemy.getMagicalResistance() -(getDamage()*0.5) - getMagicalItem()->getItemMagic();
 		if (damageToDo>0)
 		{
-			_enemy.setHp(damageToDo);
+			_enemy.setHp(_enemy.getHp() - damageToDo);
 		}
 		break;
 	case HeroType::Phisical:
 		damageToDo = _enemy.getHp() - getMagicalItem()->getItemMagic();
 		if (damageToDo>0)
 		{
-			_enemy.setHp(damageToDo);
+			_enemy.setHp(_enemy.getHp() - damageToDo);
 		}
 		break;
 	default: break;
 	}
-
-	if (getHp()!=100)
-	{
-		setHp(getHp() + 10);
-	}
+	World::MoveHeroId(getId());
 }
 
 Wizard::Wizard(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem* _item)

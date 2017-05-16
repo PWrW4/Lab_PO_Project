@@ -7,6 +7,7 @@ int main()
 	
 	World * W = new World();
 	
+	W->PrepereGame();
 	W->drawMap();
 
 	getchar();

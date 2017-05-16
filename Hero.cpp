@@ -12,6 +12,9 @@ Hero::Hero(int _damege, int _defence, int _magicalResistance, int _move, int _at
 	id = _id;
 }
 
+Hero::Hero()
+{
+}
 
 void Hero::setId(int _setTo)
 {
@@ -112,6 +115,7 @@ int Hero::getSpecialAttackChance() const
 {
 	return specialAttackChance;
 }
+
 
 Hero::~Hero()
 {
