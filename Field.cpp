@@ -44,7 +44,7 @@ Field::Field(int _x, int _y)
 		cout << "field creation error";
 		break;
 	}
-	HeroOnThisField = NULL;
+	HeroOnThisField = nullptr;
 }
 
 Field::~Field()
@@ -53,13 +53,23 @@ Field::~Field()
 
 Hero* Field::getHero() const
 {
-	return HeroOnThisField;
+	if (HeroOnThisField)
+	{
+		return HeroOnThisField;
+	}
+	else
+	{
+		return nullptr;
+	}	
 }
 
 void Field::setHero(Hero* _hero)
 {
 	HeroOnThisField = _hero;
-	_hero->setXY(x, y);
+	if (_hero!= nullptr)
+	{
+		_hero->setXY(x, y);
+	}
 }
 
 int Field::getX() const
@@ -67,7 +77,7 @@ int Field::getX() const
 	return x;
 }
 
-int Field::getY()
+int Field::getY() const
 {
 	return y;
 }

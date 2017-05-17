@@ -22,7 +22,7 @@ public:
 	void setHero(Hero* _hero);
 
 	int getX() const;
-	int getY();
+	int getY() const;
 
 	void FieldDoMagic(int &_temp_move) const;
 };

@@ -8,7 +8,14 @@ int main()
 	World * W = new World();
 	
 	W->PrepereGame();
-	W->drawMap();
+	do
+	{
+		W->drawMap();
+		W->DoMove();
+		getchar();
+	}
+	while (true);
+
 
 	getchar();
 	return 0;

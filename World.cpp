@@ -30,13 +30,14 @@ void World::PrepereGame()
 
 void World::drawMap() const
 {
+	system("cls");
 	cout << "----------" << endl;
 	for (int i = 0; i < 8; i++)
 	{
 		cout << "|";
 		for (int j = 0; j < 8; j++)
 		{
-			if (Map[i][j]->getHero() != NULL)
+			if (Map[i][j]->getHero() != nullptr)
 			{
 				cout << Map[i][j]->getHero()->getId();
 			}
@@ -71,7 +72,7 @@ Hero* World::CreateHero()
 		break;
 	default:
 		std::cout << "hero generator error 1";
-		return NULL;
+		return nullptr;
 		break;
 	}
 	id_literator++;
@@ -83,27 +84,65 @@ void World::MoveHeroId(int _id)
 
 }
 
-void World::HeroMapMove()
+void World::HeroMapMove(Hero * H)
 {
+	Map[H->getX()][H->getY()]->setHero(nullptr);
+
 	int r = rand() % 4 + 1;
 
 	switch (r)
 	{
 	case 1:
-
+		if ((H->getX()+1)>7 && Map[H->getX() + 1][H->getY()]->getHero()== nullptr)
+		{
+			break;
+		}
+		else
+		{
+			Map[H->getX() + 1][H->getY()]->setHero(H);
+		}
 		break;
 	case 2:
-
+		if ((H->getY() + 1)>7 && Map[H->getX()][H->getY()+1]->getHero() == nullptr)
+		{
+			break;
+		}
+		else
+		{
+			Map[H->getX()][H->getY()+1]->setHero(H);
+		}
 		break;
 	case 3:
-
+		if ((H->getX() - 1)<0 && Map[H->getX() - 1][H->getY()]->getHero() == nullptr)
+		{
+			break;
+		}
+		else
+		{
+			Map[H->getX() - 1][H->getY()]->setHero(H);
+		}
 		break;
 	case 4:
-
+		if ((H->getY() - 1)<0 && Map[H->getX()][H->getY()-1]->getHero() == nullptr)
+		{
+			break;
+		}
+		else
+		{
+			Map[H->getX()][H->getY() - 1]->setHero(H);
+		}
 		break;
 	default:
 		std::cout << "rand mapMoveError";
 		break;
+	}
+}
+
+void World::DoMove()
+{
+	for (int i=0;i<4;i++)
+	{
+		HeroMapMove(Heroes[i]);
 	}
 }
 

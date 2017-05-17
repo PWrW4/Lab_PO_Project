@@ -14,8 +14,12 @@ public:
 	void drawMap() const;
 
 	Hero * CreateHero();
+
+	//heroes move function
 	static void MoveHeroId(int _id);
-	void HeroMapMove();
+	void HeroMapMove(Hero * H);
+	void DoMove();
+
 	World();
 	~World();
 };
