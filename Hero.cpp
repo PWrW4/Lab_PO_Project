@@ -10,11 +10,9 @@ Hero::Hero(int _damege, int _defence, int _magicalResistance, int _move, int _at
 	hp = _Hp;
 	attackDistance = _attackdistance;
 	id = _id;
+
 }
 
-Hero::Hero()
-{
-}
 
 void Hero::setId(int _setTo)
 {
@@ -64,6 +62,12 @@ void Hero::setSymbol(string _setTo)
 void Hero::setSpecialAttackChance(int _setTo)
 {
 	specialAttackChance = _setTo;
+}
+
+void Hero::setXY(int _x, int _y)
+{
+	X = _x;
+	Y = _y;
 }
 
 int Hero::getId() const
@@ -116,6 +120,15 @@ int Hero::getSpecialAttackChance() const
 	return specialAttackChance;
 }
 
+int Hero::getX()
+{
+	return X;
+}
+
+int Hero::getY()
+{
+	return Y;
+}
 
 Hero::~Hero()
 {

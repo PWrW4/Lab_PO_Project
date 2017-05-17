@@ -6,18 +6,22 @@
 
 void World::PrepereGame()
 {
+	//generate Map
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			Map[i][j] = new Field();
+			Map[i][j] = new Field(i,j);
 		}
 	}
+
+	//creating Heroes
 	for (int i = 0; i < 4; i++)
 	{
 		Heroes[i] = CreateHero();
-
 	}
+
+	//settingHeroOnMap
 	Map[0][0]->setHero(Heroes[0]);
 	Map[7][0]->setHero(Heroes[1]);
 	Map[7][7]->setHero(Heroes[2]);
@@ -76,10 +80,31 @@ Hero* World::CreateHero()
 
 void World::MoveHeroId(int _id)
 {
+
 }
 
 void World::HeroMapMove()
 {
+	int r = rand() % 4 + 1;
+
+	switch (r)
+	{
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	default:
+		std::cout << "rand mapMoveError";
+		break;
+	}
 }
 
 //constructors

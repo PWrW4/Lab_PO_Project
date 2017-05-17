@@ -23,8 +23,11 @@ void Field::FieldDoMagic(int &_temp_move) const
 	}
 }
 
-Field::Field()
+Field::Field(int _x, int _y)
 {
+	x = _x;
+	y = _y;
+
 	int r = rand() % 3;
 	switch (r)
 	{
@@ -44,7 +47,6 @@ Field::Field()
 	HeroOnThisField = NULL;
 }
 
-
 Field::~Field()
 {
 }
@@ -57,4 +59,15 @@ Hero* Field::getHero() const
 void Field::setHero(Hero* _hero)
 {
 	HeroOnThisField = _hero;
+	_hero->setXY(x, y);
+}
+
+int Field::getX() const
+{
+	return x;
+}
+
+int Field::getY()
+{
+	return y;
 }

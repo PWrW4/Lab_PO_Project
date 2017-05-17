@@ -27,7 +27,7 @@ void Wizard::magicianAttack(Hero& _enemy)
 }
 
 Wizard::Wizard(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem* _item)
-	: Magician(_damege, _defence, _magicalResistance, _move, _attackdistance, _Hp, _id, _item)
+	: Magician(_item), Hero(_damege, _defence, _magicalResistance, _move, _attackdistance, _Hp, _id)
 {
 }
 

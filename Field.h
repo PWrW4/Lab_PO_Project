@@ -12,11 +12,18 @@ class Field
 {
 	FieldType type;
 	Hero * HeroOnThisField;
+	int x, y;
 public:
-	void FieldDoMagic(int &_temp_move) const;
-	Field();
+	//constructors
+	Field(int _x, int _y);
 	~Field();
+
 	Hero * getHero() const;
 	void setHero(Hero* _hero);
+
+	int getX() const;
+	int getY();
+
+	void FieldDoMagic(int &_temp_move) const;
 };
 

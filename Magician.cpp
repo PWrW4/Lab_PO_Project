@@ -16,8 +16,7 @@ void Magician::Attack(Hero& _enemy)
 	magicianAttack(_enemy);
 }
 
-Magician::Magician(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem* _item)
-	:Hero(0/*_damege*/, _defence, _magicalResistance, _move, _attackdistance, _Hp, _id)
+Magician::Magician(MagicialItem* _item)
 {
 	magicalItem = _item;
 }

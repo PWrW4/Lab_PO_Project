@@ -14,7 +14,7 @@ public:
 
 	void Attack(Hero &_enemy) override;
 
-	Magician(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem * _item);
+	Magician(MagicialItem * _item);
 	~Magician();
 };
 
