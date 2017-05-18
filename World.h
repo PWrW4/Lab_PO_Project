@@ -16,8 +16,8 @@ public:
 	Hero * CreateHero();
 
 	//heroes move function
-	static void MoveHeroId(int _id);
-	void SearchForEnemy(Hero* hero, int &move_points) const;
+	void MoveHeroId(int _id);
+	void SearchForEnemy(Hero* hero, int &move_points);
 	void HeroMapMove(Hero * H);
 	void DoMove();
 

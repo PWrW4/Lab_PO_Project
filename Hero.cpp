@@ -1,7 +1,7 @@
 #include "Hero.h"
 
 
-Hero::Hero(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id)
+Hero::Hero(string S,int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id)
 {
 	damage = _damege;
 	defence = _defence;
@@ -10,6 +10,7 @@ Hero::Hero(int _damege, int _defence, int _magicalResistance, int _move, int _at
 	hp = _Hp;
 	attackDistance = _attackdistance;
 	id = _id;
+	symbol = S;
 }
 
 
@@ -109,7 +110,7 @@ HeroType Hero::getHeroType() const
 	return heroType;
 }
 
-string Hero::setSymbol() const
+string Hero::getSymbol() const
 {
 	return symbol;
 }

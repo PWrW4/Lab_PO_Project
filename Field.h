@@ -24,6 +24,7 @@ public:
 	void setHero(Hero* _hero);
 	void setEmpty(bool _e);
 	bool getEmpty() const;
+	FieldType getFieldType();
 
 	int getX() const;
 	int getY() const;

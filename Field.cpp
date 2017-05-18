@@ -76,6 +76,11 @@ bool Field::getEmpty() const
 	return empty;
 }
 
+FieldType Field::getFieldType()
+{
+	return type;
+}
+
 int Field::getX() const
 {
 	return x;

@@ -24,9 +24,9 @@ void Paladin::magicianAttack(Hero& _enemy)
 
 	if (getHp() < 100)
 	{
-		if (getHp()<80)
+		if (getHp()<90)
 		{
-			setHp(getHp() + 20);
+			setHp(getHp() + 10);
 		}
 		else
 		{
@@ -36,8 +36,8 @@ void Paladin::magicianAttack(Hero& _enemy)
 }
 
 
-Paladin::Paladin(int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem* _item)
-	: Magician(_item), Hero(_damege, _defence, _magicalResistance, _move, _attackdistance, _Hp, _id)
+Paladin::Paladin(string S,int _damege, int _defence, int _magicalResistance, int _move, int _attackdistance, int _Hp, int _id, MagicialItem* _item)
+	: Magician(_item), Hero(S,_damege, _defence, _magicalResistance, _move, _attackdistance, _Hp, _id)
 {
 }
 

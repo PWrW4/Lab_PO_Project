@@ -24,7 +24,7 @@ class Hero
 	
 public:
 	//constructors
-	Hero(int _damege, int _defence,int _magicalResistance, int _move, int _attackdistance, int _Hp , int _id);
+	Hero(string S,int _damege, int _defence,int _magicalResistance, int _move, int _attackdistance, int _Hp , int _id);
 
 	//geters && setters
 	void setId(int _setTo);
@@ -47,7 +47,7 @@ public:
 	int getMovePoints() const;
 	int getAttackDistance() const;
 	HeroType getHeroType() const;
-	string setSymbol() const;
+	string getSymbol() const;
 	int getSpecialAttackChance() const;
 	int getX();
 	int getY();

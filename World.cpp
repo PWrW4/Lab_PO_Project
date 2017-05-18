@@ -2,6 +2,7 @@
 #include "Assasin.h"
 #include "Knight.h"
 #include "Wizard.h"
+#include "Paladin.h"
 
 
 void World::PrepereGame()
@@ -39,40 +40,54 @@ void World::drawMap() const
 		{
 			if (!Map[i][j]->getEmpty())
 			{
-				cout << Map[i][j]->getHero()->getId();
+				cout << Map[i][j]->getHero()->getSymbol();
 			}
 			else
 			{
-				cout << "X";
+				switch (Map[i][j]->getFieldType())
+				{
+				case FieldType::Grassland:
+					cout << "_";
+					break;
+				case FieldType::Mountain:
+					cout << "^";
+					break;
+				case FieldType::Castle:
+					cout << "#";
+					break;
+				}
 			}
 
 		}
 		cout << "|" << endl;
 	}
 	cout << "----------" << endl;
-	cout << "Hero 0 HP:" << Heroes[0]->getHp() << endl;
-	cout << "Hero 1 HP:" << Heroes[1]->getHp() << endl;
-	cout << "Hero 2 HP:" << Heroes[2]->getHp() << endl;
-	cout << "Hero 3 HP:" << Heroes[3]->getHp() << endl;
+	for (int i = 0; i < 4; i++) {
+		if (Heroes[i]->getHp()!=(-999))
+		{
+			cout << Heroes[i]->getSymbol() << " HP:" << Heroes[i]->getHp() << " X:" << Heroes[i]->getX() << " Y:" << Heroes[i]->getY() << endl;
+		}
+	}
+
 }
 
 Hero* World::CreateHero()
 {
 	Hero * HeroToTeturn;
-	int r = rand() % 4 + 1;
+	int r =rand() % 4 + 1;
 	switch (r)
 	{
 	case 1:
-		HeroToTeturn = new Assasin(20, 5, 4, 3, 1, 100, id_literator, new Weapon(10));
+		HeroToTeturn = new Assasin("A",20, 5, 4, 3, 1, 100, id_literator, new Weapon(10));
 		break;
 	case 2:
-		HeroToTeturn = new Knight(25, 10, 2, 2, 1, 100, id_literator, new Weapon(5));
+		HeroToTeturn = new Knight("K",25, 10, 2, 2, 1, 100, id_literator, new Weapon(5));
 		break;
 	case 3:
-		HeroToTeturn = new Wizard(20, 10, 15, 2, 2, 100, id_literator, new MagicialItem(15));
+		HeroToTeturn = new Wizard("W", 20, 10, 15, 2, 2, 100, id_literator, new MagicialItem(15));
 		break;
 	case 4:
-		HeroToTeturn = new Wizard(15, 15, 20, 4, 4, 100, id_literator, new MagicialItem(10));
+		HeroToTeturn = new Paladin("P", 15, 15, 20, 4, 4, 100, id_literator, new MagicialItem(10));
 		break;
 	default:
 		std::cout << "hero generator error 1";
@@ -85,7 +100,75 @@ Hero* World::CreateHero()
 
 void World::MoveHeroId(int _id)
 {
-
+	for (int i=0;i<4;i++)
+	{
+		if (Heroes[i]->getId()==_id)
+		{
+			int r = rand() % 4 + 1;
+			switch (r)
+			{
+			case 1:
+				if ((Heroes[i]->getX() + 1) > 7)
+				{
+					break;
+				}
+				else
+				{
+					if (Map[Heroes[i]->getX() + 1][Heroes[i]->getY()]->getEmpty())
+					{
+						Map[Heroes[i]->getX()][Heroes[i]->getY()]->setEmpty(true);
+						Map[Heroes[i]->getX() + 1][Heroes[i]->getY()]->setHero(Heroes[i]);
+					}
+				}
+				break;
+			case 2:
+				if ((Heroes[i]->getY() + 1) > 7)
+				{
+					break;
+				}
+				else
+				{
+					if (Map[Heroes[i]->getX()][Heroes[i]->getY() + 1]->getEmpty())
+					{
+						Map[Heroes[i]->getX()][Heroes[i]->getY()]->setEmpty(true);
+						Map[Heroes[i]->getX()][Heroes[i]->getY() + 1]->setHero(Heroes[i]);
+					}
+				}
+				break;
+			case 3:
+				if ((Heroes[i]->getX() - 1) < 0)
+				{
+					break;
+				}
+				else
+				{
+					if (Map[Heroes[i]->getX() - 1][Heroes[i]->getY()]->getEmpty())
+					{
+						Map[Heroes[i]->getX()][Heroes[i]->getY()]->setEmpty(true);
+						Map[Heroes[i]->getX() - 1][Heroes[i]->getY()]->setHero(Heroes[i]);
+					}
+				}
+				break;
+			case 4:
+				if ((Heroes[i]->getY() - 1) < 0)
+				{
+					break;
+				}
+				else
+				{
+					if (Map[Heroes[i]->getX()][Heroes[i]->getY() - 1]->getEmpty())
+					{
+						Map[Heroes[i]->getX()][Heroes[i]->getY()]->setEmpty(true);
+						Map[Heroes[i]->getX()][Heroes[i]->getY() - 1]->setHero(Heroes[i]);
+					}
+				}
+				break;
+			default:
+				std::cout << "rand mapMoveError";
+				break;
+			}
+		}
+	}
 }
 
 void World::HeroMapMove(Hero * H)
@@ -159,39 +242,68 @@ void World::HeroMapMove(Hero * H)
 		}
 		_movePoints--;
 		SearchForEnemy(H, _movePoints);
+		Map[H->getX()][H->getY()]->FieldDoMagic(_movePoints);
 	} while (_movePoints > 0);
 }
 
 
-void World::SearchForEnemy(Hero* hero, int& move_points) const
+void World::SearchForEnemy(Hero* hero, int& move_points)
 {
 	if (move_points>0)
 	{
 		for (int HeroRange = hero->getAttackDistance(); HeroRange >= 1; HeroRange--)
 		{
-			if (!Map[hero->getX() + HeroRange][hero->getY()]->getEmpty() && hero->getX() + HeroRange < 8)
+			if (hero->getX() + HeroRange < 8)
 			{
-				hero->Attack(*Map[hero->getX() + HeroRange][hero->getY()]->getHero());
-				move_points--;
-				break;
+				if (!Map[hero->getX() + HeroRange][hero->getY()]->getEmpty())
+				{
+					hero->Attack(*Map[hero->getX() + HeroRange][hero->getY()]->getHero());
+					move_points--;
+					if (hero->getHeroType() == HeroType::Magical)
+					{
+						MoveHeroId(hero->getId());
+					}
+					break;
+				}
 			}
-			if (!Map[hero->getX()][hero->getY() + HeroRange]->getEmpty() && hero->getY() + HeroRange < 8)
+			if (hero->getY() + HeroRange < 8)
 			{
-				hero->Attack(*Map[hero->getX()][hero->getY() + HeroRange]->getHero());
-				move_points--;
-				break;
+				if (!Map[hero->getX()][hero->getY() + HeroRange]->getEmpty())
+				{
+					hero->Attack(*Map[hero->getX()][hero->getY() + HeroRange]->getHero());
+					move_points--;
+					if (hero->getHeroType() == HeroType::Magical)
+					{
+						MoveHeroId(hero->getId());
+					}
+					break;
+				}
 			}
-			if (!Map[hero->getX() - HeroRange][hero->getY()]->getEmpty() && hero->getX() - HeroRange  > -1)
+			if (hero->getX() - HeroRange  > -1)
 			{
-				hero->Attack(*Map[hero->getX() - HeroRange][hero->getY()]->getHero());
-				move_points--;
-				break;
+				if (!Map[hero->getX() - HeroRange][hero->getY()]->getEmpty())
+				{
+					hero->Attack(*Map[hero->getX() - HeroRange][hero->getY()]->getHero());
+					move_points--;
+					if (hero->getHeroType() == HeroType::Magical)
+					{
+						MoveHeroId(hero->getId());
+					}
+					break;
+				}
 			}
-			if (!Map[hero->getX()][hero->getY() - HeroRange]->getEmpty() && hero->getY() - HeroRange > -1)
+			if (hero->getY() - HeroRange > -1)
 			{
-				hero->Attack(*Map[hero->getX()][hero->getY() - HeroRange]->getHero());
-				move_points--;
-				break;
+				if (!Map[hero->getX()][hero->getY() - HeroRange]->getEmpty())
+				{
+					hero->Attack(*Map[hero->getX()][hero->getY() - HeroRange]->getHero());
+					move_points--;
+					if (hero->getHeroType()==HeroType::Magical)
+					{
+						MoveHeroId(hero->getId());
+					}
+					break;
+				}
 			}
 		}
 	}
@@ -201,8 +313,20 @@ void World::DoMove()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		HeroMapMove(Heroes[i]);
+		if (Heroes[i]->getHp()>0)
+		{
+			HeroMapMove(Heroes[i]);
+		}
+		else
+		{
+			if (Heroes[i]->getHp()!=(-999))
+			{
+				Map[Heroes[i]->getX()][Heroes[i]->getY()]->setEmpty(true);
+				Heroes[i]->setHp(-999);
+			}
+		}
 	}
+
 }
 
 //constructors
