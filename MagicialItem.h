@@ -2,8 +2,7 @@
 class MagicialItem
 {
 	int magic;
-public:
-	
+public:	
 	int getItemMagic() const;
 
 	explicit MagicialItem(int _magic);

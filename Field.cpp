@@ -3,7 +3,7 @@
 
 void Field::FieldDoMagic(int &_temp_move) const
 {
-	if (HeroOnThisField != NULL) 
+	if (!empty) 
 		{
 		switch (type)
 		{

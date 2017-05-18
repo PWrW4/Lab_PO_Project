@@ -6,12 +6,10 @@ int Weapon::getWeaponDamage() const
 	return weaponDamage;
 }
 
-Weapon::Weapon(int _dmg, int _move)
+Weapon::Weapon(int _dmg)
 {
 	weaponDamage = _dmg;
-	weaponMoveCost = _move;
 }
-
 
 
 Weapon::~Weapon()

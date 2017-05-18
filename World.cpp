@@ -50,10 +50,10 @@ void World::drawMap() const
 		cout << "|" << endl;
 	}
 	cout << "----------" << endl;
-	cout << "Hero 0" << endl;
-	cout << "Hero 1" << endl;
-	cout << "Hero 2" << endl;
-	cout << "Hero 3" << endl;
+	cout << "Hero 0 HP:" << Heroes[0]->getHp() << endl;
+	cout << "Hero 1 HP:" << Heroes[1]->getHp() << endl;
+	cout << "Hero 2 HP:" << Heroes[2]->getHp() << endl;
+	cout << "Hero 3 HP:" << Heroes[3]->getHp() << endl;
 }
 
 Hero* World::CreateHero()
@@ -63,10 +63,10 @@ Hero* World::CreateHero()
 	switch (r)
 	{
 	case 1:
-		HeroToTeturn = new Assasin(20, 5, 4, 3, 1, 100, id_literator, new Weapon(10, 1));
+		HeroToTeturn = new Assasin(20, 5, 4, 3, 1, 100, id_literator, new Weapon(10));
 		break;
 	case 2:
-		HeroToTeturn = new Knight(25, 10, 2, 2, 1, 100, id_literator, new Weapon(5, 1));
+		HeroToTeturn = new Knight(25, 10, 2, 2, 1, 100, id_literator, new Weapon(5));
 		break;
 	case 3:
 		HeroToTeturn = new Wizard(20, 10, 15, 2, 2, 100, id_literator, new MagicialItem(15));
@@ -90,69 +90,110 @@ void World::MoveHeroId(int _id)
 
 void World::HeroMapMove(Hero * H)
 {
-	int r = rand() % 4 + 1;
-
-	switch (r)
+	int _movePoints = H->getMovePoints();
+	do
 	{
-	case 1:
-		if ((H->getX() + 1) > 7)
+
+		int r = rand() % 4 + 1;
+		switch (r)
 		{
+		case 1:
+			if ((H->getX() + 1) > 7)
+			{
+				break;
+			}
+			else
+			{
+				if (Map[H->getX() + 1][H->getY()]->getEmpty())
+				{
+					Map[H->getX()][H->getY()]->setEmpty(true);
+					Map[H->getX() + 1][H->getY()]->setHero(H);
+				}
+			}
+			break;
+		case 2:
+			if ((H->getY() + 1) > 7)
+			{
+				break;
+			}
+			else
+			{
+				if (Map[H->getX()][H->getY() + 1]->getEmpty())
+				{
+					Map[H->getX()][H->getY()]->setEmpty(true);
+					Map[H->getX()][H->getY() + 1]->setHero(H);
+				}
+			}
+			break;
+		case 3:
+			if ((H->getX() - 1) < 0)
+			{
+				break;
+			}
+			else
+			{
+				if (Map[H->getX() - 1][H->getY()]->getEmpty())
+				{
+					Map[H->getX()][H->getY()]->setEmpty(true);
+					Map[H->getX() - 1][H->getY()]->setHero(H);
+				}
+			}
+			break;
+		case 4:
+			if ((H->getY() - 1) < 0)
+			{
+				break;
+			}
+			else
+			{
+				if (Map[H->getX()][H->getY() - 1]->getEmpty())
+				{
+					Map[H->getX()][H->getY()]->setEmpty(true);
+					Map[H->getX()][H->getY() - 1]->setHero(H);
+				}
+			}
+			break;
+		default:
+			std::cout << "rand mapMoveError";
 			break;
 		}
-		else
+		_movePoints--;
+		SearchForEnemy(H, _movePoints);
+	} while (_movePoints > 0);
+}
+
+
+void World::SearchForEnemy(Hero* hero, int& move_points) const
+{
+	if (move_points>0)
+	{
+		for (int HeroRange = hero->getAttackDistance(); HeroRange >= 1; HeroRange--)
 		{
-			if (Map[H->getX() + 1][H->getY()]->getEmpty())
+			if (!Map[hero->getX() + HeroRange][hero->getY()]->getEmpty() && hero->getX() + HeroRange < 8)
 			{
-				Map[H->getX()][H->getY()]->setEmpty(true);
-				Map[H->getX() + 1][H->getY()]->setHero(H);
+				hero->Attack(*Map[hero->getX() + HeroRange][hero->getY()]->getHero());
+				move_points--;
+				break;
+			}
+			if (!Map[hero->getX()][hero->getY() + HeroRange]->getEmpty() && hero->getY() + HeroRange < 8)
+			{
+				hero->Attack(*Map[hero->getX()][hero->getY() + HeroRange]->getHero());
+				move_points--;
+				break;
+			}
+			if (!Map[hero->getX() - HeroRange][hero->getY()]->getEmpty() && hero->getX() - HeroRange  > -1)
+			{
+				hero->Attack(*Map[hero->getX() - HeroRange][hero->getY()]->getHero());
+				move_points--;
+				break;
+			}
+			if (!Map[hero->getX()][hero->getY() - HeroRange]->getEmpty() && hero->getY() - HeroRange > -1)
+			{
+				hero->Attack(*Map[hero->getX()][hero->getY() - HeroRange]->getHero());
+				move_points--;
+				break;
 			}
 		}
-		break;
-	case 2:
-		if ((H->getY() + 1) > 7)
-		{
-			break;
-		}
-		else
-		{
-			if (Map[H->getX()][H->getY() + 1]->getEmpty())
-			{
-				Map[H->getX()][H->getY()]->setEmpty(true);
-				Map[H->getX()][H->getY() + 1]->setHero(H);
-			}
-		}
-		break;
-	case 3:
-		if ((H->getX() - 1) < 0)
-		{
-			break;
-		}
-		else
-		{
-			if (Map[H->getX() - 1][H->getY()]->getEmpty())
-			{
-				Map[H->getX()][H->getY()]->setEmpty(true);
-				Map[H->getX() - 1][H->getY()]->setHero(H);
-			}
-		}
-		break;
-	case 4:
-		if ((H->getY() - 1) < 0)
-		{
-			break;
-		}
-		else
-		{
-			if (Map[H->getX()][H->getY() - 1]->getEmpty())
-			{
-				Map[H->getX()][H->getY()]->setEmpty(true);
-				Map[H->getX()][H->getY() - 1]->setHero(H);
-			}
-		}
-		break;
-	default:
-		std::cout << "rand mapMoveError";
-		break;
 	}
 }
 
