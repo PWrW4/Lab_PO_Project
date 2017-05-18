@@ -13,13 +13,17 @@ class Field
 	FieldType type;
 	Hero * HeroOnThisField;
 	int x, y;
+	bool empty;
 public:
 	//constructors
 	Field(int _x, int _y);
 	~Field();
 
+	//getters & setters
 	Hero * getHero() const;
 	void setHero(Hero* _hero);
+	void setEmpty(bool _e);
+	bool getEmpty() const;
 
 	int getX() const;
 	int getY() const;

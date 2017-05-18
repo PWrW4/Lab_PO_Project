@@ -11,7 +11,7 @@ void World::PrepereGame()
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			Map[i][j] = new Field(i,j);
+			Map[i][j] = new Field(i, j);
 		}
 	}
 
@@ -37,11 +37,15 @@ void World::drawMap() const
 		cout << "|";
 		for (int j = 0; j < 8; j++)
 		{
-			if (Map[i][j]->getHero() != nullptr)
+			if (!Map[i][j]->getEmpty())
 			{
 				cout << Map[i][j]->getHero()->getId();
 			}
-			else { cout << "X"; }
+			else
+			{
+				cout << "X";
+			}
+
 		}
 		cout << "|" << endl;
 	}
@@ -86,50 +90,64 @@ void World::MoveHeroId(int _id)
 
 void World::HeroMapMove(Hero * H)
 {
-	Map[H->getX()][H->getY()]->setHero(nullptr);
-
 	int r = rand() % 4 + 1;
 
 	switch (r)
 	{
 	case 1:
-		if ((H->getX()+1)>7 && Map[H->getX() + 1][H->getY()]->getHero()== nullptr)
+		if ((H->getX() + 1) > 7)
 		{
 			break;
 		}
 		else
 		{
-			Map[H->getX() + 1][H->getY()]->setHero(H);
+			if (Map[H->getX() + 1][H->getY()]->getEmpty())
+			{
+				Map[H->getX()][H->getY()]->setEmpty(true);
+				Map[H->getX() + 1][H->getY()]->setHero(H);
+			}
 		}
 		break;
 	case 2:
-		if ((H->getY() + 1)>7 && Map[H->getX()][H->getY()+1]->getHero() == nullptr)
+		if ((H->getY() + 1) > 7)
 		{
 			break;
 		}
 		else
 		{
-			Map[H->getX()][H->getY()+1]->setHero(H);
+			if (Map[H->getX()][H->getY() + 1]->getEmpty())
+			{
+				Map[H->getX()][H->getY()]->setEmpty(true);
+				Map[H->getX()][H->getY() + 1]->setHero(H);
+			}
 		}
 		break;
 	case 3:
-		if ((H->getX() - 1)<0 && Map[H->getX() - 1][H->getY()]->getHero() == nullptr)
+		if ((H->getX() - 1) < 0)
 		{
 			break;
 		}
 		else
 		{
-			Map[H->getX() - 1][H->getY()]->setHero(H);
+			if (Map[H->getX() - 1][H->getY()]->getEmpty())
+			{
+				Map[H->getX()][H->getY()]->setEmpty(true);
+				Map[H->getX() - 1][H->getY()]->setHero(H);
+			}
 		}
 		break;
 	case 4:
-		if ((H->getY() - 1)<0 && Map[H->getX()][H->getY()-1]->getHero() == nullptr)
+		if ((H->getY() - 1) < 0)
 		{
 			break;
 		}
 		else
 		{
-			Map[H->getX()][H->getY() - 1]->setHero(H);
+			if (Map[H->getX()][H->getY() - 1]->getEmpty())
+			{
+				Map[H->getX()][H->getY()]->setEmpty(true);
+				Map[H->getX()][H->getY() - 1]->setHero(H);
+			}
 		}
 		break;
 	default:
@@ -140,7 +158,7 @@ void World::HeroMapMove(Hero * H)
 
 void World::DoMove()
 {
-	for (int i=0;i<4;i++)
+	for (int i = 0; i < 4; i++)
 	{
 		HeroMapMove(Heroes[i]);
 	}

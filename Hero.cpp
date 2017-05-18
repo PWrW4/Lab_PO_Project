@@ -10,7 +10,6 @@ Hero::Hero(int _damege, int _defence, int _magicalResistance, int _move, int _at
 	hp = _Hp;
 	attackDistance = _attackdistance;
 	id = _id;
-
 }
 
 
