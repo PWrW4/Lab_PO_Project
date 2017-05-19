@@ -53,7 +53,7 @@ void World::drawMap() const
 					cout << "^";
 					break;
 				case FieldType::Castle:
-					cout << "#";
+					cout << "*";
 					break;
 				}
 			}
